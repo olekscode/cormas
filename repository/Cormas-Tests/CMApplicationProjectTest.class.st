@@ -61,9 +61,7 @@ CMApplicationProjectTest >> testDefaultTranslatorClass [
 { #category : #test }
 CMApplicationProjectTest >> testModelNames [
 
-	CMResourceLocator useGitBridge
-		ifTrue: [ self assertCollection: self application modelNames hasSameElements: self cormasModelNamesForTests ]
-		ifFalse: [ self assertCollection: self application modelNames hasSameElements: { 'MockModel' } ]
+	self assertCollection: self application modelNames hasSameElements: { 'MockModel' }
 ]
 
 { #category : #test }

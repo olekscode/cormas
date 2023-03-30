@@ -121,9 +121,7 @@ CMProjectManagerTest >> testCormasModelVersion [
 { #category : #test }
 CMProjectManagerTest >> testCormasModels [
 
-	CMResourceLocator useGitBridge
-		ifTrue: [ self assertCollection: self projectManager cormasModels hasSameElements: self cormasModelNamesForTests ]
-		ifFalse: [ self assertCollection: self projectManager cormasModels hasSameElements: { 'MockModel' } ]
+	self assertCollection: self projectManager cormasModels hasSameElements: { 'MockModel' }.
 ]
 
 { #category : #test }

@@ -247,7 +247,7 @@ CMProjectBuilderTest >> testWriteProjectTree [
 	self builder writeProjectTree.
 	self 
 		assertCollection: (self builder localBuildDirRef children collect: #basename) 
-		hasSameElements: CMResourceLocator resourceDirectoryNames
+		hasSameElements: self builder resourceDirectoryNames
 ]
 
 { #category : #test }

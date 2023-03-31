@@ -104,7 +104,9 @@ CMProjectBuilder class >> rebuildModels [
 CMProjectBuilder class >> resourceDirectoryNames [
 	" Answer a <Collection> with the names of subdirectories of a CORMAS project "
 
-	^ CMResourceLocator resourceDirectoryNames
+	| resourceLocator |
+	resourceLocator := CMResourceLocator forLocalGitRepository.
+	^ resourceLocator resourceDirectoryNames
 ]
 
 { #category : #'accessing - building' }

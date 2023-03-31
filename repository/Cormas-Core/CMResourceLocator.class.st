@@ -80,6 +80,33 @@ CMResourceLocator class >> demosPath [
 	^ CMApplicationProject baseDirectory / 'demos'
 ]
 
+{ #category : #'instance creation' }
+CMResourceLocator class >> forDirectory: aFileReference [
+	"Create an instance of resource locator for a given directory.
+	It will search for resources only in this directory.
+	This method can be used for testing with in-memory file system"
+		
+	^ self new
+		baseDirectory: aFileReference;
+		yourself.
+]
+
+{ #category : #'instance creation' }
+CMResourceLocator class >> forLocalGitRepository [
+	"Create an instance of resource locator for a local Git repository.
+	Use GitBridge to find the root of Cormas repository"
+	
+	| root |
+	
+	root := [ self root ]
+		on: GBError
+		do: [ :ex | FileLocator workingDirectory ].
+		
+	^ self new
+		baseDirectory: root;
+		yourself.
+]
+
 { #category : #accessing }
 CMResourceLocator class >> imagesPath [
 	" Answer a <FileReference> with the receiver's path to the images directory "
@@ -97,15 +124,6 @@ CMResourceLocator class >> preferencesPath [
 	" Answer a <FileReference> with the receiver's path to the preferences directory "
 
 	^ CMApplicationProject baseDirectory / 'preferences'
-]
-
-{ #category : #accessing }
-CMResourceLocator class >> resourceDirectoryNames [
-	" Answer a <Collection> of <String> representing each a subdirectory of a CORMAS project "
-	| locator |
-	
-	locator := self new.
-	^ self resourceSelectors collect: [ : selector | (locator perform: selector with: String empty) basename ]
 ]
 
 { #category : #accessing }
@@ -174,7 +192,7 @@ CMResourceLocator >> assetsPath [
 	" Answer a <FileReference> specifying a directory where CORMAS assets are found.
 	Ex: /Users/Bommel/Pharo/images/Pharo 8.0 - 64bit (stable)/pharo-local/iceberg/cormas/cormas/assets"
 
-	^ self class assetsPath asFileReference
+	^ baseDirectory / self class assetsFilesDirectoryName
 ]
 
 { #category : #accessing }
@@ -402,6 +420,14 @@ Ex: Cormas readMatrix: 'D:\vw7.6\cormas\Models\Ecec\data\test.csv' sep: ';'   "
 			whileTrue: [ subCollection add: nil ].
 		matrix add: subCollection ].
 	^ matrix.
+]
+
+{ #category : #defaults }
+CMResourceLocator >> resourceDirectoryNames [
+	" Answer a <Collection> of <String> representing each a subdirectory of a CORMAS project "
+	
+	^ self class resourceSelectors collect: [ :selector |
+		(self perform: selector with: String empty) basename ]
 ]
 
 { #category : #'utilities - path - models' }

@@ -74,6 +74,8 @@ CMResourceLocatorTest >> setUp [
 	super setUp.
 	self resourceLocator: CMResourceLocator new.
 	self resourceLocator class useGitBridge: false.
+	
+	self resourceLocator baseDirectory: self resourceBuilder modelPath parent.
 ]
 
 { #category : #accessing }
@@ -269,10 +271,4 @@ CMResourceLocatorTest >> testVideoPath [
 		assert: (cmFileRef isKindOf: FileReference);
 		assert: cmFileRef isDirectory;
 		assert: cmFileRef fullName equals: '/assets/models/MockModel/video'
-]
-
-{ #category : #testing }
-CMResourceLocatorTest >> testWorkingDirectory [
-
-	self assert: (self resourceLocator workingDirectory isKindOf: String) 
 ]

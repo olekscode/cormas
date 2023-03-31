@@ -17,6 +17,9 @@ Internal Representation and Key Implementation Points.
 Class {
 	#name : #CMResourceLocator,
 	#superclass : #GitBridge,
+	#instVars : [
+		'baseDirectory'
+	],
 	#classInstVars : [
 		'useGitBridge'
 	],
@@ -133,13 +136,6 @@ CMResourceLocator class >> userProjectsPath [
 	^ CMApplicationProject baseDirectory / 'projects'
 ]
 
-{ #category : #public }
-CMResourceLocator class >> workingDirectory [
-	" Answer a <String> with the default directory "
-	
-	^ FileSystem disk workingDirectory fullName
-]
-
 { #category : #'utilities - path - global' }
 CMResourceLocator >> addOnsPath [
 	" Answer a <FileReference> corresponding to the path of 'Add-ons' directory "
@@ -181,11 +177,25 @@ CMResourceLocator >> assetsPath [
 	^ self class assetsPath asFileReference
 ]
 
+{ #category : #accessing }
+CMResourceLocator >> baseDirectory [
+	"Base directory that contains all resources"
+	
+	^ baseDirectory
+]
+
+{ #category : #accessing }
+CMResourceLocator >> baseDirectory: aFileReference [
+	"Base directory that contains all resources"
+	
+	baseDirectory := aFileReference
+]
+
 { #category : #'utilities - path - global' }
 CMResourceLocator >> cormasPath [
 	" Answer a <FileReference> corresponding to the path of Cormas directory. "
 
-	^ self workingDirectory asFileReference
+	^ baseDirectory
 
 ]
 
@@ -401,11 +411,4 @@ CMResourceLocator >> videoPath: aModelClassName [
 	
 	^ (self modelPath: aModelClassName) asFileReference / 'video'.
 
-]
-
-{ #category : #'utilities - path - global' }
-CMResourceLocator >> workingDirectory [
-	" Answer a <String> representing the current working directory "
-	
-	^ self class workingDirectory
 ]

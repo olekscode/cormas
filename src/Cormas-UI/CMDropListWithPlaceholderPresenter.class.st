@@ -5,6 +5,15 @@ Class {
 	#package : 'Cormas-UI'
 }
 
+{ #category : 'examples' }
+CMDropListWithPlaceholderPresenter class >> example [
+	<example>
+	self new
+		placeholder: 'Numbers';
+		items: #(one two three);
+		open.
+]
+
 { #category : 'testing' }
 CMDropListWithPlaceholderPresenter >> hasPlaceholder [
 

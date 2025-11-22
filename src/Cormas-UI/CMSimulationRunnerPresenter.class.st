@@ -151,11 +151,9 @@ CMSimulationRunnerPresenter >> defaultLayout [
 				yourself) width: self class buttonWidth;
 			yourself) height: row1Height + row2Height + 3;
 		add: (SpBoxLayout newLeftToRight 
-			spacing: 3;
-			add: (SpBoxLayout newTopToBottom
-				add: translator tProgressBarLabel height: self class labelHeight;
-				add: progressBarLabel height: self class labelHeight;
-				yourself) width: 80;
+			spacing: 10;
+			vAlignCenter;
+			add: progressBarLabel expand: false;
 			add: progressBar;
 			yourself) height: self class labelHeight * 2 + 1;
 		yourself.

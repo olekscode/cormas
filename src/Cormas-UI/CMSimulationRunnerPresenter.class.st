@@ -58,15 +58,13 @@ CMSimulationRunnerPresenter class >> openForSimulation: aSimulation withTranslat
 { #category : 'as yet unclassified' }
 CMSimulationRunnerPresenter >> beInNotRunningMode [
 
-	(owner isNotNil and: [ owner isWindowPresenter not ])
-		ifTrue: [ owner beInNotRunningMode ]
+	owner beInNotRunningMode
 ]
 
 { #category : 'as yet unclassified' }
 CMSimulationRunnerPresenter >> beInRunningMode [
 
-	(owner isNotNil and: [ owner isWindowPresenter not ])
-		ifTrue: [ owner beInRunningMode ]
+	owner beInRunningMode
 ]
 
 { #category : 'initialization' }
@@ -116,7 +114,8 @@ CMSimulationRunnerPresenter >> hasSimulationData [
 CMSimulationRunnerPresenter >> hideSettings [
 
 	simulationControls hide.
-	owner hideInitializationSettings.
+	self flag: 'TODO'.
+	"owner hideInitializationSettings."
 	self update.
 	self fitDiagram
 ]
@@ -260,7 +259,8 @@ CMSimulationRunnerPresenter >> shouldPause: aBoolean [
 CMSimulationRunnerPresenter >> showSettings [
 
 	simulationControls show.
-	owner showInitializationSettings.
+	self flag: 'TODO'.
+	"owner showInitializationSettings."
 	self update.
 	self fitDiagram
 ]

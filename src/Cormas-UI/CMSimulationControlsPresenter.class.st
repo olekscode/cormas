@@ -36,7 +36,9 @@ CMSimulationControlsPresenter >> beInNotRunningMode [
 		action: [ owner runSimulationUntilEnd ].
 		
 	stepButton enabled: true.
-	owner ifNotNil: [ owner beInNotRunningMode ]
+	
+	self flag: 'TODO'.
+	"owner ifNotNil: [ owner beInNotRunningMode ]"
 ]
 
 { #category : 'as yet unclassified' }
@@ -47,7 +49,9 @@ CMSimulationControlsPresenter >> beInRunningMode [
 		action: [ owner shouldPause: true ].
 		
 	stepButton enabled: false.
-	owner ifNotNil: [ owner beInRunningMode ]
+	
+	self flag: 'TODO'.
+	"owner ifNotNil: [ owner beInRunningMode ]"
 ]
 
 { #category : 'initialization' }

@@ -37,6 +37,7 @@ CMSimulationInitializerPresenter >> connectPresenters [
 CMSimulationInitializerPresenter >> defaultLayout [
 
 	^ SpBoxLayout newTopToBottom
+		borderWidth: 5;
 		spacing: 10;
 		add: (SpBoxLayout newTopToBottom
 			add: translator tInitMethod expand: false;

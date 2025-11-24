@@ -158,6 +158,18 @@ CMSimulationPresenter >> setModelBeforeInitialization: aCollection [
 ]
 
 { #category : 'as yet unclassified' }
+CMSimulationPresenter >> settingsRandomNumbers [
+	<fancyNotebookPage>
+	
+	^ SpNotebookPage
+		title: 'Random numbers'
+		icon: (self iconNamed: #configuration)
+		provider: [ self
+			instantiate: CMSimulationInitRandomPresenter
+			on: { modelClass . translator } ]
+]
+
+{ #category : 'as yet unclassified' }
 CMSimulationPresenter >> settingsSimulationInitializer [
 	<fancyNotebookPage>
 	
@@ -168,5 +180,6 @@ CMSimulationPresenter >> settingsSimulationInitializer [
 			instantiate: CMSimulationInitializerPresenter
 			on: { modelClass . translator })
 			whenInitializeButtonClickedDo: [ :initSelector :controlSelector |
-				self initializeSimulationInit: initSelector control: controlSelector ] ]
+				self initializeSimulationInit: initSelector control: controlSelector ];
+			yourself ]
 ]

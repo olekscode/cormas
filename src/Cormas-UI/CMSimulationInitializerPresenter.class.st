@@ -1,0 +1,98 @@
+Class {
+	#name : 'CMSimulationInitializerPresenter',
+	#superclass : 'SpPresenter',
+	#instVars : [
+		'translator',
+		'modelClass',
+		'initSelectorDropList',
+		'controlSelectorDropList',
+		'initializeButton',
+		'initializeButtonBlock'
+	],
+	#category : 'Cormas-UI',
+	#package : 'Cormas-UI'
+}
+
+{ #category : 'examples' }
+CMSimulationInitializerPresenter class >> example [
+	<example>
+	(self on: { CMMockModel . CMEnglishTranslator new}) open
+]
+
+{ #category : 'initialization' }
+CMSimulationInitializerPresenter >> connectPresenters [
+
+	initializeButtonBlock := [ :initSelector :controlSelector | "do nothing" ].
+
+	initializeButton action: [
+		initializeButtonBlock
+			value: initSelectorDropList selectedItem
+			value: controlSelectorDropList selectedItem ].
+	
+	initSelectorDropList whenSelectedItemChangedDo: [ :item | self ensureAllInitSettingsDefined ].
+	controlSelectorDropList whenSelectedItemChangedDo: [ :item | self ensureAllInitSettingsDefined ]
+]
+
+{ #category : 'layout' }
+CMSimulationInitializerPresenter >> defaultLayout [
+
+	^ SpBoxLayout newTopToBottom
+		spacing: 10;
+		add: (SpBoxLayout newTopToBottom
+			add: translator tInitMethod expand: false;
+			add: initSelectorDropList expand: false;
+			yourself) expand: false;
+		add: (SpBoxLayout newTopToBottom
+			add: translator tControlMethod expand: false;
+			add: controlSelectorDropList expand: false;
+			yourself) expand: false;
+		add: SpNullPresenter new;
+		add: initializeButton expand: false;
+		yourself
+]
+
+{ #category : 'as yet unclassified' }
+CMSimulationInitializerPresenter >> ensureAllInitSettingsDefined [
+	"Check if we have all the required settings for initializing a simulation: init method, control method, etc. If no - disable the initialize button"
+
+	^ initSelectorDropList selectedItem
+		ifNotNil: [ initializeButton enable ]
+		ifNil: [ initializeButton disable ]
+]
+
+{ #category : 'examples' }
+CMSimulationInitializerPresenter >> example [
+	<script: 'self example'>
+]
+
+{ #category : 'initialization' }
+CMSimulationInitializerPresenter >> initializePresenters [
+
+	initSelectorDropList := self newDropList.
+	controlSelectorDropList := self newDropList.
+	
+	initSelectorDropList items: modelClass availableInitSelectors.
+	controlSelectorDropList items: modelClass availableControlSelectors.
+		
+	initializeButton := self newButton
+		disable;
+		label: 'Initialize simulation';
+		icon: (self iconNamed: #smallNew)
+		yourself.
+
+	self ensureAllInitSettingsDefined
+]
+
+{ #category : 'accessing - model' }
+CMSimulationInitializerPresenter >> setModelBeforeInitialization: aCollection [
+
+	modelClass := aCollection first.
+	translator := aCollection second
+]
+
+{ #category : 'enumerating' }
+CMSimulationInitializerPresenter >> whenInitializeButtonClickedDo: aBlock [
+	"A two-argument block where first argument is the selected init selector and the second argument is the selected control selector"
+	
+	initializeButtonBlock := aBlock 
+]
